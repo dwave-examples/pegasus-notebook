@@ -25,3 +25,29 @@ def histogram_energies(samplesets):
     ax.set_ylabel("Samples")
     ax.legend()
     plt.show()
+
+def histogram_chains_edges(results):
+    "Plot chain-length histograms."
+    
+    fig, ax = plt.subplots()
+    shift = 0 
+
+    for problem in results.groupby('Problem'):
+       
+        ax.bar(x=problem[1]["Interactions"]+shift, 
+               height=problem[1]["Longest Chain"].apply(lambda x: x['Chimera']), 
+               width=0.1, 
+               color='b')
+        ax.bar(x=problem[1]["Interactions"]+shift, 
+               height=problem[1]["Longest Chain"].apply(lambda x: x['Pegasus']), 
+               width=0.1, 
+               color='r')
+    
+        shift = shift + 0.2
+
+    ax.set_ylabel('Longest Chain')
+    ax.set_xlabel('Interactions')
+    ax.set_title('Longest Chains for Each Topology')
+    ax.legend(['Chimera', 'Pegasus'])
+
+
