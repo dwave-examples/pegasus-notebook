@@ -3,6 +3,7 @@
 # Imports both in modules and JN for users skipping sections
 import matplotlib.pyplot as plt
 import numpy as np
+import dwave_networkx as dnx
 
 num_bins = 100
 use_bin = 70
@@ -49,5 +50,31 @@ def histogram_chains_edges(results):
     ax.set_xlabel('Edges')
     ax.set_title('Longest Chains for Each Topology')
     ax.legend(['Chimera', 'Pegasus'])
+
+
+def draw_q16(graph, topology, nred, nblue, nwhite, line_style):
+    
+    qpu_graphs = {'c': dnx.chimera_graph, 'p': dnx.pegasus_graph}
+    qpu_plots = {'c': dnx.draw_chimera, 'p': dnx.draw_pegasus}
+
+    if topology == 'Pegasus':
+        qpu_graph = qpu_graphs['p']
+        qpu_plot = qpu_plots['p']
+    else:
+        qpu_graph = qpu_graphs['c']
+        qpu_plot = qpu_plots['c']
+
+    red = qpu_graph(2, node_list=nred, edge_list=[])
+    blue = qpu_graph(2, node_list=nblue, edge_list=[])
+    white = qpu_graph(2, node_list=nwhite, edge_list=[])
+
+    fig, ax = plt.subplots(1, 1, figsize=(10,5))
+
+    qpu_plot(graph, ax=ax, with_labels=True, node_size=500, 
+                     node_color='g', style=line_style)
+
+    qpu_plot(red, ax=ax, node_size=500, node_color='r')
+    qpu_plot(blue, ax=ax, node_size=500, node_color='b')
+    qpu_plot(white, ax=ax, node_size=500, node_color='w')
 
 
