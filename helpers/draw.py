@@ -34,11 +34,11 @@ def histogram_chains_edges(results):
 
     for problem in results.groupby('Problem'):
        
-        ax.bar(x=problem[1]["Interactions"]+shift, 
+        ax.bar(x=problem[1]["Edges"]+shift, 
                height=problem[1]["Longest Chain"].apply(lambda x: x['Chimera']), 
                width=0.1, 
                color='b')
-        ax.bar(x=problem[1]["Interactions"]+shift, 
+        ax.bar(x=problem[1]["Edges"]+shift, 
                height=problem[1]["Longest Chain"].apply(lambda x: x['Pegasus']), 
                width=0.1, 
                color='r')
@@ -46,7 +46,7 @@ def histogram_chains_edges(results):
         shift = shift + 0.2
 
     ax.set_ylabel('Longest Chain')
-    ax.set_xlabel('Interactions')
+    ax.set_xlabel('Edges')
     ax.set_title('Longest Chains for Each Topology')
     ax.legend(['Chimera', 'Pegasus'])
 
