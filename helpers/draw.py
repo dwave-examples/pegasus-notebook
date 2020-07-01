@@ -57,16 +57,16 @@ def draw_q16(graph, topology, nred, nblue, nwhite, line_style):
     qpu_graphs = {'c': dnx.chimera_graph, 'p': dnx.pegasus_graph}
     qpu_plots = {'c': dnx.draw_chimera, 'p': dnx.draw_pegasus}
 
-    if topology == 'Pegasus':
+    if topology[0] == 'Pegasus':
         qpu_graph = qpu_graphs['p']
         qpu_plot = qpu_plots['p']
     else:
         qpu_graph = qpu_graphs['c']
         qpu_plot = qpu_plots['c']
 
-    red = qpu_graph(2, node_list=nred, edge_list=[])
-    blue = qpu_graph(2, node_list=nblue, edge_list=[])
-    white = qpu_graph(2, node_list=nwhite, edge_list=[])
+    red = qpu_graph(topology[1], node_list=nred, edge_list=[])
+    blue = qpu_graph(topology[1], node_list=nblue, edge_list=[])
+    white = qpu_graph(topology[1], node_list=nwhite, edge_list=[])
 
     fig, ax = plt.subplots(1, 1, figsize=(10,5))
 
