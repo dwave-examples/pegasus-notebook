@@ -35,22 +35,23 @@ def histogram_chains_edges(results):
 
     for problem in results.groupby('Problem'):
        
-        ax.bar(x=problem[1]["Edges"]+shift, 
+        ax.bar(x=problem[1]["Edges"] + shift, 
                height=problem[1]["Longest Chain"].apply(lambda x: x['Chimera']), 
-               width=0.1, 
-               color='b')
-        ax.bar(x=problem[1]["Edges"]+shift, 
+               width=0.3, 
+               color='g', 
+               alpha=0.3)
+        ax.bar(x=problem[1]["Edges"] + shift, 
                height=problem[1]["Longest Chain"].apply(lambda x: x['Pegasus']), 
-               width=0.1, 
-               color='r')
+               width=0.3, 
+               color='b', 
+               alpha=0.3)
     
-        shift = shift + 0.2
+        shift = shift + 0.3
 
     ax.set_ylabel('Longest Chain')
     ax.set_xlabel('Edges')
     ax.set_title('Longest Chains for Each Topology')
     ax.legend(['Chimera', 'Pegasus'])
-
 
 def draw_q16(graph, topology, nred, nblue, nwhite, line_style):
     
