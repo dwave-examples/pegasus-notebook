@@ -54,6 +54,7 @@ def histogram_chains_edges(results):
     ax.legend(['Chimera', 'Pegasus'])
 
 def draw_q16(graph, topology, nred, nblue, nwhite, line_style):
+    "Plot the 16-qubit problem's node and edge embedding."
     
     qpu_graphs = {'c': dnx.chimera_graph, 'p': dnx.pegasus_graph}
     qpu_plots = {'c': dnx.draw_chimera, 'p': dnx.draw_pegasus}
