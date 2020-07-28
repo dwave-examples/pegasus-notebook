@@ -30,15 +30,15 @@ def try_embedding(source_graph, target_graphs, timeout=60, tries=2):
     for topology in target_graphs:
         
         embedding = minorminer.find_embedding(source_graph.edges, 
-                                          topology[1].edges, 
+                                          target_graphs[topology].edges, 
                                           timeout=timeout, 
                                           tries=tries)
         if not embedding:
-            print("{}: failed to embed.".format(topology[0]))
-            max_len[topology[0]] = 0
+            print("{}: failed to embed.".format(topology))
+            max_len[topology] = 0
         else:
-            max_len[topology[0]] = max([len(embedding[n]) for n in embedding])
-            print("{}: found embedding with longest chain of {} qubits.".format(topology[0], max_len[topology[0]]))
+            max_len[topology] =  max(map(len, embedding.values()))
+            print("{}: found embedding with longest chain of {} qubits.".format(topology, max_len[topology]))
             
     return max_len
 
@@ -65,6 +65,4 @@ def embedding_loop(nodes, edges, target_graphs, **params):
                     try_embedding(G, target_graphs, embedding_timeout, embedding_tries)])
 
     return row 
-
-
 
