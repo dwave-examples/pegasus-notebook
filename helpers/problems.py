@@ -26,7 +26,7 @@ def generate_ranr(r, variables, interactions, draw=True):
 def compare_solutions(samplesets):
     "Print lowest and average energies."
     
-    systems = set(samplesets.keys())
+    systems = samplesets.keys()
     
     best_energies = {system: round(samplesets[system].first.energy, 3) for 
                      system in systems}
@@ -42,7 +42,7 @@ def compare_solutions(samplesets):
 def compare_embeddings(samplesets):
     "Print chain statistics."
     
-    systems = set(samplesets.keys())
+    systems = samplesets.keys()
 
     average_chains = {system: round(np.average([len(chain) for chain in 
                       samplesets[system].info['embedding_context']['embedding'].values()]), 1) for 
