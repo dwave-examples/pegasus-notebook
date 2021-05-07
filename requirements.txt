@@ -1,0 +1,8 @@
+dwave-ocean-sdk>=3.3.0
+
+jupyter
+jupyter_contrib_nbextensions
+autopep8
+
+pandas
+matplotlib~=3.0
