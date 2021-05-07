@@ -1,3 +1,7 @@
+[![Linux/Mac/Windows build status](
+  https://circleci.com/gh/dwave-examples/pegasus-notebook.svg?style=svg)](
+  https://circleci.com/gh/dwave-examples/pegasus-notebook)
+
 # Exploring the Pegasus Topology
 
 D-Wave's newest quantum computer, Advantage, introduces a quantum processing
