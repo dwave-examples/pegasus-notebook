@@ -72,3 +72,16 @@ class TestJupyterNotebook(unittest.TestCase):
         nb, errors = robust_run_jn(jn_file, MAX_RUN_TIME, MAX_EMBEDDING_RETRIES)
 
         self.assertEqual(errors, [])
+
+        # Test cell outputs:
+        # Section More Qubits and Denser Connectivity, code cell 1
+        self.assertIn("2048", cell_text(nb, 7))
+
+        # Section Test Case: Embedding Random Graphs, code cell 1
+        self.assertIn("image/png", list(nb["cells"][11]["outputs"][0]["data"].keys()))
+
+        # Section Test Case: Embedding Random Graphs, code cell 2
+        self.assertIn("found", cell_text(nb, 14))
+
+        # Section Test Case: Embedding Random Graphs, code cell 3
+        self.assertIn("image/png", list(nb["cells"][16]["outputs"][1]["data"].keys()))
