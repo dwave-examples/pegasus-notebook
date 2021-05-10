@@ -137,5 +137,68 @@ class TestJupyterNotebook(unittest.TestCase):
         # Section Chimera Topology, code cell 3 (translate)
         self.assertIn("Qubit 13", cell_text(nb, 61))
 
-        # Section Pegasus Topology, code cell 1 (draw_pegasus(pegasus_2))
+        # Section Pegasus Topology - Qubit Indices, code cell 1
         self.assertIn("image/png", nb["cells"][64]["outputs"][0]["data"])
+
+        # Section Pegasus Topology - Qubit Indices, code cell 2
+        self.assertIn("Qubit 36", cell_text(nb, 66))
+
+        # Section Pegasus Topology - Qubit Indices, code cell 3 (draw qubit 36 etc)
+        self.assertIn("image/png", nb["cells"][68]["outputs"][0]["data"])
+
+        # Section Pegasus Coordinates, code cell 1
+        self.assertIn("Pegasus coordinates", cell_text(nb, 70))
+
+        # Section Pegasus Coordinates, code cell 2
+        self.assertIn("Pegasus coordinates", cell_text(nb, 72))
+
+        # Section Nice Coordinates, code cell 1
+        self.assertIn("nice coordinates", cell_text(nb, 74))
+
+        # Section Nice Coordinates, code cell 2
+        self.assertIn("nice coordinates", cell_text(nb, 76))
+
+        # Section Chimera Embedding, code cell 1
+        self.assertIn("image/png", nb["cells"][79]["outputs"][0]["data"])
+
+        # Section Chimera Embedding, exercise 1 cell 2 (test solution)
+        self.assertIn("image/png", nb["cells"][83]["outputs"][0]["data"])
+
+        # Section Chimera Embedding, exercise 2 cell 2 (test solution)
+        self.assertIn("image/png", nb["cells"][87]["outputs"][0]["data"])
+
+        # Section Chimera Embedding, exercise 2 cell 2 (test solution)
+        self.assertIn("image/png", nb["cells"][87]["outputs"][0]["data"])
+
+        # Section Pegasus Embedding, code cell 1
+        self.assertIn("image/png", nb["cells"][90]["outputs"][0]["data"])
+
+        # Section Pegasus Embedding, code cell 1
+        self.assertIn("image/png", nb["cells"][90]["outputs"][0]["data"])
+
+        # Section Pegasus Embedding, exercise 1 cell 2 (test solution: nodes)
+        self.assertIn("image/png", nb["cells"][94]["outputs"][0]["data"])
+
+        # Section Pegasus Embedding, exercise 2 cell 2 (test solution: edges)
+        self.assertIn("image/png", nb["cells"][98]["outputs"][0]["data"])
+
+        # Section Pegasus Embedding, exercise 3 cell 2 (test solution: problem)
+        self.assertIn("image/png", nb["cells"][103]["outputs"][0]["data"])
+
+        # Section Example Problem: RANr, code cell 1
+        self.assertIn("image/png", nb["cells"][106]["outputs"][0]["data"])
+
+        # Section Single Submission, code cell 1
+        self.assertIn("image/png", nb["cells"][110]["outputs"][0]["data"])
+
+        # Section Single Submission, code cell 2 (Compare the solutions)
+        self.assertIn("Best energies found", cell_text(nb, 112))
+
+        # Section Single Submission, code cell 3 (analyze)
+        self.assertIn("Average chain lengths", cell_text(nb, 114))
+
+        # Section Single Submission, code cell 4 (histogram)
+        self.assertIn("image/png", nb["cells"][115]["outputs"][0]["data"])
+
+        # Section Multiple Submissions, code cell 1
+        self.assertIn("Problem 2", nb["cells"][119]["outputs"][4]["text"])
