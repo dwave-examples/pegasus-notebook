@@ -78,10 +78,34 @@ class TestJupyterNotebook(unittest.TestCase):
         self.assertIn("2048", cell_text(nb, 7))
 
         # Section Test Case: Embedding Random Graphs, code cell 1
-        self.assertIn("image/png", list(nb["cells"][11]["outputs"][0]["data"].keys()))
+        self.assertIn("image/png", nb["cells"][11]["outputs"][0]["data"])
 
         # Section Test Case: Embedding Random Graphs, code cell 2
         self.assertIn("found", cell_text(nb, 14))
 
         # Section Test Case: Embedding Random Graphs, code cell 3
-        self.assertIn("image/png", list(nb["cells"][16]["outputs"][1]["data"].keys()))
+        self.assertIn("found", nb["cells"][16]["outputs"][2]["text"])
+
+        # Section Performance on Sparse Graphs, code cell 1
+        self.assertIn("topologies", cell_text(nb, 21))
+
+        # Section Performance on Sparse Graphs, code cell 2 (loop code for 2 nodes)
+        self.assertIn("found", nb["cells"][23]["outputs"][2]["text"])
+
+        # Section Performance on Sparse Graphs, code cell 3 (tabulating 2 nodes)
+        self.assertIn("text/plain", nb["cells"][25]["outputs"][0]["data"])
+
+        # Section Performance on Sparse Graphs, code cell 4 (loop code for 3 nodes)
+        self.assertIn("found", nb["cells"][27]["outputs"][2]["text"])
+
+        # Section Performance on Sparse Graphs, code cell 5 (tabulating 3 nodes)
+        self.assertIn("text/plain", nb["cells"][29]["outputs"][0]["data"])
+
+        # Section Performance on Dense Graphs, code cell 1
+        self.assertIn("found", nb["cells"][31]["outputs"][2]["text"])
+
+        # Section Performance on Dense Graphs, code cell 2 (tabulating)
+        self.assertIn("text/plain", nb["cells"][33]["outputs"][0]["data"])
+
+        # Section Performance on Dense Graphs, code cell 3 (histogram)
+        self.assertIn("image/png", nb["cells"][34]["outputs"][0]["data"])
