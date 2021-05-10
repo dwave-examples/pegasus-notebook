@@ -59,6 +59,9 @@ def robust_run_jn(jn, timeout, retries):
 def cell_text(nb, cell):
     return nb["cells"][cell]["outputs"][0]["text"]
 
+def cell_output(nb, cell, part, data_type):
+    return nb["cells"][cell]["outputs"][part][data_type]
+
 jn_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 jn_file = os.path.join(jn_dir, '01-exploring-pegasus.ipynb')
 
@@ -72,3 +75,128 @@ class TestJupyterNotebook(unittest.TestCase):
         nb, errors = robust_run_jn(jn_file, MAX_RUN_TIME, MAX_EMBEDDING_RETRIES)
 
         self.assertEqual(errors, [])
+
+        # Test cell outputs:
+        # Section More Qubits and Denser Connectivity, code cell 1
+        self.assertIn("2048", cell_text(nb, 7))
+
+        # Section Test Case: Embedding Random Graphs, code cell 1
+        self.assertIn("image/png", cell_output(nb, 11, 0, "data"))
+
+        # Section Test Case: Embedding Random Graphs, code cell 2
+        self.assertIn("found", cell_text(nb, 14))
+
+        # Section Test Case: Embedding Random Graphs, code cell 3
+        self.assertIn("found", cell_output(nb, 16, 2, "text"))
+
+        # Section Performance on Sparse Graphs, code cell 1
+        self.assertIn("topologies", cell_text(nb, 21))
+
+        # Section Performance on Sparse Graphs, code cell 2 (loop code for 2 nodes)
+        self.assertIn("found", cell_output(nb, 23, 2, "text"))
+
+        # Section Performance on Sparse Graphs, code cell 3 (tabulating 2 nodes)
+        self.assertIn("text/plain", cell_output(nb, 25, 0, "data"))
+
+        # Section Performance on Sparse Graphs, code cell 4 (loop code for 3 nodes)
+        self.assertIn("found", cell_output(nb, 27, 2, "text"))
+
+        # Section Performance on Sparse Graphs, code cell 5 (tabulating 3 nodes)
+        self.assertIn("text/plain", cell_output(nb, 29, 0, "data"))
+
+        # Section Performance on Dense Graphs, code cell 1
+        self.assertIn("found", cell_output(nb, 31, 2, "text"))
+
+        # Section Performance on Dense Graphs, code cell 2 (tabulating)
+        self.assertIn("text/plain", cell_output(nb, 33, 0, "data"))
+
+        # Section Performance on Dense Graphs, code cell 3 (histogram)
+        self.assertIn("image/png", cell_output(nb, 34, 0, "data"))
+
+        # Section Embedding in a Single Unit Cell, code cell 1 (draw chimera)
+        self.assertIn("image/png", cell_output(nb, 39, 1, "data"))
+
+        # Section Embedding in a Single Unit Cell, code cell 2 (chain lengths)
+        self.assertIn("embedded", cell_text(nb, 40))
+
+        # Section Solver Availability, code cell 1
+        self.assertIn("Connected", cell_text(nb, 45))
+
+        # Section Solver Availability, code cell 2
+        self.assertIn("yield", cell_text(nb, 47))
+
+        # Section Embed Random Graphs, code cell 2 (chain length for clique)
+        self.assertIn("embedded", cell_text(nb, 51))
+
+        # Section Embed Random Graphs, code cell 2 (chain for random graph)
+        self.assertIn("image/png", cell_output(nb, 52, 1, "data"))
+
+        # Section Chimera Topology, code cell 1 (draw_chimera(chimera_2))
+        self.assertIn("image/png", cell_output(nb, 57, 0, "data"))
+
+        # Section Chimera Topology, code cell 2 (linear_to_chimera)
+        self.assertIn("coordinates", nb["cells"][59]["source"])
+
+        # Section Chimera Topology, code cell 3 (translate)
+        self.assertIn("Qubit 13", cell_text(nb, 61))
+
+        # Section Pegasus Topology - Qubit Indices, code cell 1
+        self.assertIn("image/png", cell_output(nb, 64, 0, "data"))
+
+        # Section Pegasus Topology - Qubit Indices, code cell 2
+        self.assertIn("Qubit 36", cell_text(nb, 66))
+
+        # Section Pegasus Topology - Qubit Indices, code cell 3 (draw qubit 36 etc)
+        self.assertIn("image/png", cell_output(nb, 68, 0, "data"))
+
+        # Section Pegasus Coordinates, code cell 1
+        self.assertIn("Pegasus coordinates", cell_text(nb, 70))
+
+        # Section Pegasus Coordinates, code cell 2
+        self.assertIn("Pegasus coordinates", cell_text(nb, 72))
+
+        # Section Nice Coordinates, code cell 1
+        self.assertIn("nice coordinates", cell_text(nb, 74))
+
+        # Section Nice Coordinates, code cell 2
+        self.assertIn("nice coordinates", cell_text(nb, 76))
+
+        # Section Chimera Embedding, code cell 1
+        self.assertIn("image/png", cell_output(nb, 79, 0, "data"))
+
+        # Section Chimera Embedding, exercise 1 cell 2 (test solution)
+        self.assertIn("image/png", cell_output(nb, 83, 0, "data"))
+
+        # Section Chimera Embedding, exercise 2 cell 2 (test solution)
+        self.assertIn("image/png", cell_output(nb, 87, 0, "data"))
+
+        # Section Pegasus Embedding, code cell 1
+        self.assertIn("image/png", cell_output(nb, 90, 0, "data"))
+
+        # Section Pegasus Embedding, exercise 1 cell 2 (test solution: nodes)
+        self.assertIn("image/png", cell_output(nb, 94, 0, "data"))
+
+        # Section Pegasus Embedding, exercise 2 cell 2 (test solution: edges)
+        self.assertIn("image/png", cell_output(nb, 98, 0, "data"))
+
+        # Section Pegasus Embedding, exercise 3 cell 2 (test solution: problem)
+        self.assertIn("image/png", cell_output(nb, 103, 0, "data"))
+
+        # Section Example Problem: RANr, code cell 1
+        self.assertIn("image/png", cell_output(nb, 106, 0, "data"))
+
+        # Section Single Submission, code cell 1
+        self.assertIn("image/png", cell_output(nb, 110, 0, "data"))
+
+        # Section Single Submission, code cell 2 (Compare the solutions)
+        self.assertIn("Best energies found", cell_text(nb, 112))
+
+        # Section Single Submission, code cell 3 (analyze)
+        self.assertIn("Average chain lengths", cell_text(nb, 114))
+
+        # Section Single Submission, code cell 4 (histogram)
+        self.assertIn("image/png", cell_output(nb, 115, 0, "data"))
+
+        # Section Multiple Submissions, code cell 1
+        self.assertIn("Problem 2", cell_output(nb, 119, 4, "text"))
+        
