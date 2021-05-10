@@ -109,3 +109,33 @@ class TestJupyterNotebook(unittest.TestCase):
 
         # Section Performance on Dense Graphs, code cell 3 (histogram)
         self.assertIn("image/png", nb["cells"][34]["outputs"][0]["data"])
+
+        # Section Embedding in a Single Unit Cell, code cell 1 (draw chimera)
+        self.assertIn("image/png", nb["cells"][39]["outputs"][1]["data"])
+
+        # Section Embedding in a Single Unit Cell, code cell 2 (chain lengths)
+        self.assertIn("embedded", cell_text(nb, 40))
+
+        # Section Solver Availability, code cell 1
+        self.assertIn("Connected", cell_text(nb, 45))
+
+        # Section Solver Availability, code cell 2
+        self.assertIn("yield", cell_text(nb, 47))
+
+        # Section Embed Random Graphs, code cell 2 (chain length for clique)
+        self.assertIn("embedded", cell_text(nb, 51))
+
+        # Section Embed Random Graphs, code cell 2 (chain for random graph)
+        self.assertIn("image/png", nb["cells"][52]["outputs"][1]["data"])
+
+        # Section Chimera Topology, code cell 1 (draw_chimera(chimera_2))
+        self.assertIn("image/png", nb["cells"][57]["outputs"][0]["data"])
+
+        # Section Chimera Topology, code cell 2 (linear_to_chimera)
+        self.assertIn("coordinates", nb["cells"][59]["source"])
+
+        # Section Chimera Topology, code cell 3 (translate)
+        self.assertIn("Qubit 13", cell_text(nb, 61))
+
+        # Section Pegasus Topology, code cell 1 (draw_pegasus(pegasus_2))
+        self.assertIn("image/png", nb["cells"][64]["outputs"][0]["data"])
