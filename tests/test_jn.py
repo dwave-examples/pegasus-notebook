@@ -119,16 +119,16 @@ class TestJupyterNotebook(unittest.TestCase):
         # Section Embedding in a Single Unit Cell, code cell 2 (chain lengths)
         self.assertIn("embedded", cell_text(nb, 40))
 
-        # Section Solver Availability, code cell 1
+        # Section Solver Yield, code cell 1
         self.assertIn("Connected", cell_text(nb, 45))
 
-        # Section Solver Availability, code cell 2
+        # Section Solver Yield, code cell 2
         self.assertIn("yield", cell_text(nb, 47))
 
         # Section Embed Random Graphs, code cell 2 (chain length for clique)
-        self.assertIn("embedded", cell_text(nb, 51))
+        self.assertIn("Embedded", cell_text(nb, 51))
 
-        # Section Embed Random Graphs, code cell 2 (chain for random graph)
+        # Section Embed Random Graphs, code cell 3 (chain for random graph)
         self.assertIn("image/png", cell_output(nb, 52, 1, "data"))
 
         # Section Chimera Topology, code cell 1 (draw_chimera(chimera_2))
@@ -185,18 +185,14 @@ class TestJupyterNotebook(unittest.TestCase):
         # Section Example Problem: RANr, code cell 1
         self.assertIn("image/png", cell_output(nb, 106, 0, "data"))
 
-        # Section Single Submission, code cell 1
+        # Section Submit a Problem to an Advantage System, code cell 1
         self.assertIn("image/png", cell_output(nb, 110, 0, "data"))
 
-        # Section Single Submission, code cell 2 (Compare the solutions)
-        self.assertIn("Best energies found", cell_text(nb, 112))
+        # Section Submit a Problem to an Advantage System, code cell 2 (Compare the solutions)
+        self.assertIn("Best energy found", cell_text(nb, 112))
 
-        # Section Single Submission, code cell 3 (analyze)
-        self.assertIn("Average chain lengths", cell_text(nb, 114))
+        # Section Submit a Problem to an Advantage System, code cell 3 (analyze)
+        self.assertIn("Average chain length", cell_text(nb, 114))
 
-        # Section Single Submission, code cell 4 (histogram)
-        self.assertIn("image/png", cell_output(nb, 115, 0, "data"))
-
-        # Section Multiple Submissions, code cell 1
-        self.assertIn("Problem 2", cell_output(nb, 119, 4, "text"))
-        
+        # Section Submit a Problem to an Advantage System, code cell 4 (histogram)
+        self.assertIn("image/png", cell_output(nb, 116, 0, "data"))

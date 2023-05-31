@@ -18,8 +18,7 @@ The notebook has the following sections:
    between the previous and new QPU architectures.
 2. **Navigating the Topology** describes the new topology and presents Ocean tools
    that help you use it.
-3. **Example Problem: RANr** solves a hard problem on Advantage and D-Wave 2000Q
-   quantum computers.
+3. **Example Problem: RANr** solves a hard problem on an Advantage quantum computer.
 
 ## QPU Architecture: Topologies
 

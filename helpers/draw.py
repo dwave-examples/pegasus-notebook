@@ -20,19 +20,16 @@ import dwave_networkx as dnx
 num_bins = 100
 use_bin = 70
 
-def histogram_energies(samplesets):
-    "Plot energy histograms for both QPUs."
+def histogram_energies(sampleset):
+    "Plot energy histogram."
 
     fig = plt.figure(figsize=(8, 2))
-    a = samplesets[list(samplesets.keys())[0]].record.energy
-    b = samplesets[list(samplesets.keys())[1]].record.energy
 
-    bins=np.histogram(np.hstack((a,b)), bins=num_bins)[1]
+    bins=np.histogram(sampleset.record.energy, bins=100)[1]
 
     ax = fig.add_subplot(1, 1, 1)
 
-    ax.hist(a, bins[0:use_bin], color='b', alpha=0.4, label=list(samplesets.keys())[0])
-    ax.hist(b, bins[0:use_bin], color='g', alpha=0.4, label=list(samplesets.keys())[1])
+    ax.hist(sampleset.record.energy, bins[0:70], color='b', alpha=0.4, label="Advantage")
 
     ax.set_xlabel("Energy")
     ax.set_ylabel("Samples")
